@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musicapp/features/home/presentation/views/widgets/home_view_body.dart';
 
 List<BottomNavigationBarItem> bottombar = [
   const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -8,9 +9,7 @@ List<BottomNavigationBarItem> bottombar = [
 
 List<Widget> screens = [
   Scaffold(
-    body: Center(
-      child: Text("Home"),
-    ),
+    body: HomeViewBody(),
   ),
   Scaffold(
     body: Center(

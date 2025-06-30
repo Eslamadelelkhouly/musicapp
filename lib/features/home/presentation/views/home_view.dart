@@ -16,6 +16,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomButtonBar(
+        index: index,
         onTab: (value) {
           setState(() {
             index = value;

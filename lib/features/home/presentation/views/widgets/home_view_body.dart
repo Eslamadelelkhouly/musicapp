@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:musicapp/features/home/presentation/views/widgets/custom_search_textfield.dart';
 import 'package:musicapp/utils/core/color_style.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -6,6 +9,8 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -16,6 +21,22 @@ class HomeViewBody extends StatelessWidget {
           colors: [
             ColorStyle.primary,
             ColorStyle.secondary.withOpacity(0.54),
+          ],
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 33),
+        child: Column(
+          children: [
+            SizedBox(
+              height: height * 0.07,
+            ),
+            CustomSearchTextfield(
+              controller: TextEditingController(),
+              onChanged: (value) {
+                log(value);
+              },
+            ),
           ],
         ),
       ),
