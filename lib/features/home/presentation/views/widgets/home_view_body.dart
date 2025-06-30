@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/card_recently_song.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/custom_search_textfield.dart';
+import 'package:musicapp/features/home/presentation/views/widgets/list_view_recently.dart';
 import 'package:musicapp/utils/core/color_style.dart';
 import 'package:musicapp/utils/core/style.dart';
 
@@ -53,7 +54,12 @@ class HomeViewBody extends StatelessWidget {
             SizedBox(
               height: height * 0.02,
             ),
-            CardRecentlySong(),
+            Expanded(
+              child: ListViewRecently(),
+            ),
+            SizedBox(
+              height: height * 0.03,
+            ),
           ],
         ),
       ),

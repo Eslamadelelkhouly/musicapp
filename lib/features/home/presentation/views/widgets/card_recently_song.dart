@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musicapp/utils/core/assets_images.dart';
+import 'package:musicapp/utils/core/style.dart';
 
 class CardRecentlySong extends StatelessWidget {
   const CardRecentlySong({super.key});
@@ -7,6 +8,7 @@ class CardRecentlySong extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           width: 151,
@@ -17,6 +19,16 @@ class CardRecentlySong extends StatelessWidget {
               AssetsImages.cardimage,
               fit: BoxFit.cover,
             ),
+          ),
+        ),
+        Text(
+          'Who Says',
+          style: Style.textStylemedium15,
+        ),
+        Text(
+          'Selena Gomez',
+          style: Style.textStylemedium12.copyWith(
+            color: Color(0xffB1AFE9),
           ),
         ),
       ],
