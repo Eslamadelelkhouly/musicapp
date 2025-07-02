@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:musicapp/features/home/data/models/music_model.dart';
 import 'package:musicapp/utils/core/assets_images.dart';
 import 'package:musicapp/utils/core/style.dart';
 
 class CardRecentlySong extends StatelessWidget {
-  const CardRecentlySong({super.key});
-
+  const CardRecentlySong({super.key, required this.track});
+  final Track track;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,18 +17,27 @@ class CardRecentlySong extends StatelessWidget {
           height: 151,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              AssetsImages.cardimage,
+            child: CachedNetworkImage(
+              imageUrl: track.artist.picture,
               fit: BoxFit.cover,
+              errorListener: (value) => Icon(
+                Icons.error,
+                color: Colors.white,
+              ),
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ),
         Text(
-          'Who Says',
+          '${track.album.title}',
           style: Style.textStylemedium15,
         ),
         Text(
-          'Selena Gomez',
+          '${track.artist.name}',
           style: Style.textStylemedium12.copyWith(
             color: Color(0xffB1AFE9),
           ),

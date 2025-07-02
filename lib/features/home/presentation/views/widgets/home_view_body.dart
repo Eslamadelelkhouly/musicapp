@@ -1,13 +1,27 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musicapp/features/home/presentation/manager/get_bts_songs_cubit/get_bts_songs_cubit.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/custom_search_textfield.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/list_view_list_tiel.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/list_view_recently.dart';
 import 'package:musicapp/utils/core/color_style.dart';
 import 'package:musicapp/utils/core/style.dart';
 
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
+
+  @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<GetBtsSongsCubit>().getBTSsongs();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +69,25 @@ class HomeViewBody extends StatelessWidget {
             ),
             SizedBox(
               height: height * 0.25,
-              child: ListViewRecently(),
+              child: BlocConsumer<GetBtsSongsCubit, GetBtsSongsState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  if (state is GetBtsSongsLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is GetBtsSongsSuccess) {
+                    return ListViewRecently(
+                      musicModel: state.musicModel,
+                    );
+                  } else if (state is GetBtsSongsError) {
+                    return Center(
+                        child: Text(state.error['message'].toString()));
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
             ),
             Row(
               children: [

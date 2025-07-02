@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musicapp/features/home/presentation/manager/get_bts_songs_cubit/get_bts_songs_cubit.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/home_view_body.dart';
 
 List<BottomNavigationBarItem> bottombar = [
@@ -8,8 +10,11 @@ List<BottomNavigationBarItem> bottombar = [
 ];
 
 List<Widget> screens = [
-  Scaffold(
-    body: HomeViewBody(),
+  BlocProvider(
+    create: (context) => GetBtsSongsCubit(),
+    child: Scaffold(
+      body: HomeViewBody(),
+    ),
   ),
   Scaffold(
     body: Center(
