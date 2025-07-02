@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/custom_button_bar.dart';
-import 'package:musicapp/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:musicapp/utils/constant.dart';
 
 class HomeView extends StatefulWidget {

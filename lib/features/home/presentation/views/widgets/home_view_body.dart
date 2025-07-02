@@ -1,8 +1,7 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:musicapp/features/home/presentation/views/widgets/card_recently_song.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/custom_search_textfield.dart';
+import 'package:musicapp/features/home/presentation/views/widgets/list_view_list_tiel.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/list_view_recently.dart';
 import 'package:musicapp/utils/core/color_style.dart';
 import 'package:musicapp/utils/core/style.dart';
@@ -46,7 +45,7 @@ class HomeViewBody extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Recently Played',
+                  'Recently Played'.toUpperCase(),
                   style: Style.textStylemedium18,
                 ),
               ],
@@ -54,12 +53,19 @@ class HomeViewBody extends StatelessWidget {
             SizedBox(
               height: height * 0.02,
             ),
-            Expanded(
+            SizedBox(
+              height: height * 0.25,
               child: ListViewRecently(),
             ),
-            SizedBox(
-              height: height * 0.03,
+            Row(
+              children: [
+                Text(
+                  'Recommanded music'.toUpperCase(),
+                  style: Style.textStylemedium18.copyWith(),
+                ),
+              ],
             ),
+            Expanded(child: ListViewListTiel()),
           ],
         ),
       ),
