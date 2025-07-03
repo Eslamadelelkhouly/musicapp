@@ -5,20 +5,19 @@ import 'package:musicapp/features/home/data/models/music_model.dart';
 import 'package:musicapp/features/home/data/repos/get_music_repo_implementation.dart';
 import 'package:musicapp/utils/core/api_services.dart';
 
-part 'get_bts_songs_state.dart';
+part 'get_music_arabic_cubit_state.dart';
 
-class GetBtsSongsCubit extends Cubit<GetBtsSongsState> {
+class GetMusicArabicCubitCubit extends Cubit<GetMusicArabicCubitState> {
   ApiServices apiServices = ApiServices(dio: Dio());
-  GetBtsSongsCubit() : super(GetBtsSongsInitial());
-
-  Future<void> getBTSsongs() async {
-    emit(GetBtsSongsLoading());
+  GetMusicArabicCubitCubit() : super(GetMusicArabicCubitInitial());
+  Future<void> getMusicArabic() async {
+    emit(GetMusicArabicCubitLoading());
     var result = await GetMusicRepoImplementation(apiServices: apiServices)
-        .getMusicBts();
+        .getmusicArabic();
     result.fold(
-      (error) => emit(GetBtsSongsError(error: error)),
+      (error) => emit(GetMusicArabicCubitError(error: error)),
       (musicmodel) => emit(
-        GetBtsSongsSuccess(musicModel: musicmodel),
+        GetMusicArabicCubitSuccess(musicModel: musicmodel),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:musicapp/features/home/data/models/music_model.dart';
 import 'package:musicapp/utils/core/assets_images.dart';
+import 'package:musicapp/utils/core/router_screens.dart';
 import 'package:musicapp/utils/core/style.dart';
 
 class CardRecentlySong extends StatelessWidget {
@@ -15,18 +17,26 @@ class CardRecentlySong extends StatelessWidget {
         SizedBox(
           width: 151,
           height: 151,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: CachedNetworkImage(
-              imageUrl: track.artist.picture,
-              fit: BoxFit.cover,
-              errorListener: (value) => Icon(
-                Icons.error,
-                color: Colors.white,
-              ),
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(
+          child: GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(
+                RouterScreens.songs,
+                extra: track,
+              );
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: CachedNetworkImage(
+                imageUrl: track.artist.picture,
+                fit: BoxFit.cover,
+                errorListener: (value) => Icon(
+                  Icons.error,
                   color: Colors.white,
+                ),
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

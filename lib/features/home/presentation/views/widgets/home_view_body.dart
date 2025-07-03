@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicapp/features/home/presentation/manager/get_bts_songs_cubit/get_bts_songs_cubit.dart';
+import 'package:musicapp/features/home/presentation/manager/get_music_arabic_cubit/get_music_arabic_cubit_cubit.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/custom_search_textfield.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/list_view_list_tiel.dart';
 import 'package:musicapp/features/home/presentation/views/widgets/list_view_recently.dart';
@@ -21,6 +22,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     // TODO: implement initState
     super.initState();
     context.read<GetBtsSongsCubit>().getBTSsongs();
+    context.read<GetMusicArabicCubitCubit>().getMusicArabic();
   }
 
   @override
@@ -97,7 +99,34 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 ),
               ],
             ),
-            Expanded(child: ListViewListTiel()),
+            Expanded(
+              child: BlocConsumer<GetMusicArabicCubitCubit,
+                  GetMusicArabicCubitState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  Widget content;
+                  if (state is GetMusicArabicCubitLoading) {
+                    return content = const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    );
+                  } else if (state is GetMusicArabicCubitSuccess) {
+                    return content = ListViewListTiel(
+                      musicModel: state.musicModel,
+                    );
+                  } else if (state is GetMusicArabicCubitError) {
+                    return content = Center(
+                      child: Text(state.error['message'].toString()),
+                    );
+                  } else {
+                    return content = const SizedBox();
+                  }
+                },
+              ),
+            ),
           ],
         ),
       ),
