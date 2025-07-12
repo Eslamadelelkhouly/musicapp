@@ -41,6 +41,7 @@ dependencies:
   dartz: ^0.10.1
   flutter_bloc: ^9.0.0
   cached_network_image: ^3.4.1
+  audioplayers: ^6.4.0
 
 dev_dependencies:
   flutter_test:

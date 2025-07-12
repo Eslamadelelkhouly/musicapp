@@ -1,12 +1,45 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:musicapp/features/home/data/models/music_model.dart';
 import 'package:musicapp/utils/core/color_style.dart';
 import 'package:musicapp/utils/core/style.dart';
 
-class SongsViewBody extends StatelessWidget {
+class SongsViewBody extends StatefulWidget {
   const SongsViewBody({super.key, required this.track});
   final Track track;
+
+  @override
+  State<SongsViewBody> createState() => _SongsViewBodyState();
+}
+
+class _SongsViewBodyState extends State<SongsViewBody> {
+  late AudioPlayer _audioPlayer;
+  bool isPlaying = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _audioPlayer = AudioPlayer();
+  }
+
+  void _togglePlayPause() async {
+    if (isPlaying) {
+      await _audioPlayer.pause();
+    } else {
+      await _audioPlayer.play(UrlSource(widget.track.preview));
+    }
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,10 +58,15 @@ class SongsViewBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+          ContainerImageSongs(track: widget.track),
+          const SizedBox(height: 30),
+          IconButton(
+            iconSize: 60,
+            color: Colors.white,
+            icon: Icon(isPlaying ? Icons.pause_circle : Icons.play_circle),
+            onPressed: _togglePlayPause,
           ),
-          ContainerImageSongs(track: track),
         ],
       ),
     );
@@ -60,9 +98,7 @@ class ContainerImageSongs extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
           child: Text(
@@ -76,7 +112,7 @@ class ContainerImageSongs extends StatelessWidget {
           child: Text(
             '${track.artist.name}',
             textAlign: TextAlign.center,
-            style: Style.textStylemedium12.copyWith(color: Color(0xffB1AFE9)),
+            style: Style.textStylemedium12.copyWith(color: const Color(0xffB1AFE9)),
           ),
         ),
       ],
